@@ -86,8 +86,7 @@ reject = [
 ];
 
 testRule({
-	plugins: ['.'],
-	ruleName: rule.ruleName,
+	plugins: ['.'], ruleName: rule.ruleName,
 	config: [true, {
 		importFrom: {
 			customProperties: {
@@ -140,6 +139,38 @@ testRule({
 	config: [true, {
 		resolver: {
 			paths: './test',
+		},
+	}],
+	accept,
+	reject,
+});
+
+// Validation
+
+accept = [
+	{ code: 'body { color: var(--brand-blue) }' },
+	{ code: 'body { background-color: var(--brand-bg-blue) }' },
+];
+
+reject = [
+	{ code: 'body { color: var(--brand-bg-blue); }', message: messages.invalid('--brand-bg-blue', 'color') },
+	{ code: 'body { background-color: var(--brand-blue); }', message: messages.invalid('--brand-blue', 'background-color') },
+];
+
+testRule({
+	plugins: ['.'],
+	ruleName: rule.ruleName,
+	config: [true, {
+		importFrom: {
+			customProperties: {
+				'--brand-blue': '#fff',
+				'--brand-bg-blue': '#fff',
+			},
+		},
+		// TODO: Allow importing this from a file, similar to importFrom
+		propertiesValidFor: {
+			'--brand-blue': ['color'],
+			'--brand-bg-blue': ['background', 'background-color'],
 		},
 	}],
 	accept,

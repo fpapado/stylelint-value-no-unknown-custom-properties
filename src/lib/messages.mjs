@@ -3,4 +3,5 @@ import ruleName from './rule-name.mjs';
 
 export default stylelint.utils.ruleMessages(ruleName, {
 	unexpected: (name, prop) => `Unexpected custom property "${name}" inside declaration "${prop}".`,
+	invalid: (name, prop) => `Unexpected invalid use of custom property "${name}" inside declaration "${prop}".`,
 });

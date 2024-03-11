@@ -13,6 +13,7 @@ const ruleFunction = (method, opts) => {
 	// sources to import custom selectors from
 	const importFrom = [].concat(Object(opts).importFrom || []);
 	const resolver = Object(opts).resolver || {};
+	const propertiesValidFor = Object(opts).propertiesValidFor || undefined;
 
 	// promise any custom selectors are imported
 	const customPropertiesPromise = isMethodEnabled(method)
@@ -36,7 +37,7 @@ const ruleFunction = (method, opts) => {
 			);
 
 			// validate the css root
-			validateResult(result, customProperties);
+			validateResult(result, customProperties, propertiesValidFor);
 		}
 	};
 };

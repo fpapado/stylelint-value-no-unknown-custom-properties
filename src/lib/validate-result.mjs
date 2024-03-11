@@ -1,11 +1,11 @@
 import validateDecl from './validate-decl.mjs';
 
 // validate the css root
-export default (result, customProperties) => {
+export default (result, customProperties, propertiesValidFor) => {
 	// validate each declaration
 	result.root.walkDecls(decl => {
 		if (hasCustomPropertyReference(decl)) {
-			validateDecl(decl, { result, customProperties });
+			validateDecl(decl, { result, customProperties, propertiesValidFor });
 		}
 	});
 };
